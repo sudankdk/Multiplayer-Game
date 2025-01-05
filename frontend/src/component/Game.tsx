@@ -30,6 +30,13 @@ const Game: React.FC = () => {
     );
   };
 
+  // const isProjectileColiding =(x,y)=>{
+  //   return projectiles.some(
+  //     (obs)=>
+  //       x
+  //   )
+  // }
+
   const handlekeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     const newPosition = { ...position };
     if (e.key === "ArrowUp" && position.y > 0) {
@@ -49,16 +56,27 @@ const Game: React.FC = () => {
       setDirection("Right");
     }
     if (e.key === " ") {
-      const newProjectile: projectile = {
+      const newProjectile = {
         x: position.x + playerSize / 2,
         y: position.y + playerSize / 2,
         speed: 15,
         direction,
       };
-      setProjectiles((prev) => [...prev, newProjectile]);
+      if (!isColliding(newProjectile.x, newProjectile.y)) {
+        console.log(projectiles);
+        console.log("not colliding");
+
+        setProjectiles((prev) => [...prev, newProjectile]);
+      } else {
+        console.log("colliding");
+        setProjectiles([]);
+      }
     }
     if (!isColliding(newPosition.x, newPosition.y)) {
+      console.log("player not coliding");
       setPosition(newPosition);
+    } else {
+      console.log("player colliding");
     }
   };
 

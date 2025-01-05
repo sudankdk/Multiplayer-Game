@@ -14,5 +14,5 @@ export interface projectile {
   x: number;
   y: number;
   speed: number;
-  direction?:string
+  direction?: string;
 }
